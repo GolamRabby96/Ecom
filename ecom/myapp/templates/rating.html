@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block style %}{% endblock %}
+{% block foo %}
+    <div class="laptop-container">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <div class="laptop-models">
+              <div class="row">
+                <div class="col-md-12">  <!-- *********** -->
+                  <div class="thumbnail">
+                    <img src="{{con.image_one.url}}" alt="...">
+                    <div class="caption capedit">
+                      <div class="product-table ">
+                        <h2>Product Name : {{con.product_model}}</h2>
+                        <h3>Product Proce : {{con.prince}} tk</h3>
+                        <hr>
+                      </div><br><br>
+                      <h1 class="h1padding">Please add your rating and comment</h1>
+                      <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                          <div class="rating">
+                        		<input type="radio"  value="5" name="star" id="star1"><label for="star1"></label>
+                        		<input type="radio"  value="4" name="star" id="star2"><label for="star2"></label>
+                        		<input type="radio"  value="3" name="star" id="star3"><label for="star3"></label>
+                        		<input type="radio"  value="2" name="star" id="star4"><label for="star4"></label>
+                        		<input type="radio"  value="1" name="star" id="star5"><label for="star5"></label>
+                        	</div><br><br>
+                          <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Please give your Rating and comment:)" name="comment"><br>
+                          <input type="Submit" class="btn btn-success col-md-12" name="" value="Done">
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div> <!-- *********** -->
+              </div>
+            </div> <!-- /.laptop-models -->
+          </div>
+        </div> <!-- /.row -->
+      </div> <!-- /.container -->
+    </div> <!-- /.laptop-container -->
+{% endblock %}

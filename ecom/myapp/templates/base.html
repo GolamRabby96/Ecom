@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Electrozon Shop</title>
+    <link rel="icon" href="{% static 'images/gb.png' %}">
+    {% block style %}{% endblock %}
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css'%}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+
+    <!-- Main Style Sheet -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/rating.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+  </head>
+  <body>
+
+    <header>
+          <div class="top-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 pull-left">
+                        <div class="social">
+                            <ul class="list-unstyled">
+                              <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
+                              <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                              <li class="rss"><a href="#"><i class="fa fa-rss"></i></a></li>
+                              <li class="pinterest"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                              <li class="vimeo"><a href="#"><i class="fa fa-vimeo"></i></a></li>
+                           </ul>
+                        </div> <!-- /.social-->
+                    </div> <!-- /.col-md-8-->
+                    <div id="top-link" class="text-right col-md-4">
+                      {% if user.is_authenticated %}
+                        <p>Welcome <b><strong>{{user.get_username}}</strong></b> || <a href="{% url 'logout' %}">Logout</a></p>
+                      {% else %}
+                        <ul class="list-unstyled">
+                            <li class="dropdown"><a href="#" title="My Account" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static 'images/user.png' %}" class="usr"> <span class="hidden-xs">My Account</span> <i class="fa fa-angle-down"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-right userdrop">
+                                    <li><a href="{% url 'register' %}"><i class="fa fa-user-plus"></i>Register</a></li>
+                                    <li data-toggle="modal" data-target=".bs-example-modal-lg-reg"><a href="#"><i class="fa fa-lock"></i>Login</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                      {% endif %}
+                    </div> <!-- /#top-link /.col-md-4-->
+                </div> <!-- /.row-->
+            </div> <!-- /.container-->
+        </div> <!-- /.top-header-->
+        <!-- ********Top header end******** -->
+        <div class="container-fuluid">
+          {% if messages %}
+          <div class="col-md-12 messages">
+              {% for message in messages %}
+                <div style="text-align:center" class="alert alert-{{ message.tags }}" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                      {{ message }}
+                </div>
+              {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 col-sm-3 col-xs-6">
+                    <div class="header-logo">
+                        <a href=""><img src="{% static 'images/gb.png' %}" alt="Logo" class="img-responsive"></a>
+                    </div> <!-- /.header-logo -->
+                </div> <!-- /.col-lg-2 col-sm-3 col-xs-6 -->
+                <div class="col-lg-8 col-sm-6 col-xs-12">
+                    <div id="header-search" class="input-group">
+                      <form id="base-top-form" action="{% url 'index' %}"  method="GET">
+                        <input type="text" name="q" value="{{request.GET.q}}" required placeholder="Search" class="form-control input-lg" />
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default btn-lg"><i class="fa fa-search hidden-lg hidden-md"></i><span class="hidden-sm hidden-xs">Search</span></button>
+                        </span>
+                      </form>
+                    </div> <!-- /.header-search -->
+                </div> <!-- /.col-lg-8 col-sm-6 col-xs-12 -->
+                <div class="col-lg-2 col-sm-3 col-xs-6  text-right xs-cart">
+                  <!-- Add to cart button -->
+                  <!-- Add to cart button -->
+                    <div id="cart" class="btn-group btn-block">
+                        <button type="button" data-toggle="dropdown" data-loading-text="Loading..." class="btn btn-inverse btn-block btn-lg dropdown-toggle"><img src="{% static 'images/cart.png' %}"/><span id="cart-total"><span class="cart-tot">
+                          {% if user.is_authenticated %}
+                              {{ cart.count}}
+                          {% endif %}
+                          </span></span></button>
+                        <ul class="dropdown-menu pull-right">
+                            <li><p class="text-center">
+                            {% if user.is_authenticated %}
+                              {% if cart %}
+                                  you have {{ cart.count}} cart in your shopping list
+                                {% else %}
+                                Your shopping cart is empty!
+                              {% endif %}
+                            {% else %}
+                              please login first
+                            {% endif %}
+                              {% if user.is_authenticated %}
+                                  <br> <a class="brn btn-primary" href="{% url 'gocart' id=request.user.id %}">Go</a>
+                              {% endif %}
+
+                              </p></li>
+                        </ul>
+                    </div> <!-- /.cart-->
+                </div> <!-- /.col-lg-2 col-sm-3 col-xs-6 -->
+            </div> <!-- /.row -->
+        </div> <!-- /.container -->
+    </header> <!-- /.header -->
+    <!--     ***************************
+        Header Section end
+    ************************** -->
+
+    <div class="iid navbar-fixed-top">
+      <nav class="navbar navbar-default nav-out-padding ">
+          <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header navbar-set-padding ">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand newclass branding" href="{% url 'index' %}">Electrozon Shop</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-set-padding" id="bs-example-navbar-collapse-1">
+               <ul class="nav navbar-nav navbar-right">
+          <li><a href="{% url 'index' %}">HOME</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PRODUCT <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              {% for cat in sub_cat %}
+                <li><a href="{% url 'category' name=cat.name %}">{{cat.name}}</a></li>
+              {% endfor %}
+
+              <!-- <li role="separator" class="divider"></li> -->
+            </ul>
+          </li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'gocart' id=request.user.id %}">CART</a></li>
+          {% endif %}
+          <li><a href="#">CONTACT</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+              </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+      </nav>
+    </div>
+
+    <!-- ************nav bar end ********************** -->
+
+    {% block foo %}
+    {% endblock %}
+
+    <!-- ********************************** -->
+            <!-- FOOTER SECTION -->
+    <!-- ********************************** -->
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 col-sm-6 footerlist">
+            <h3>Information</h3>
+            <ul>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Investor Relation</a></li>
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 col-sm-6 footerlist">
+            <h3>Customer Service</h3>
+            <ul>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Returns</a></li>
+              <li><a href="#">Site Map</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 col-sm-6 footerlist">
+            <h3>Extras</h3>
+            <ul>
+              <li><a href="#">Brands</a></li>
+              <li><a href="#">Gift Certificates</a></li>
+              <li><a href="#">Affiliates</a></li>
+              <li><a href="#">Specials</a></li>
+            </ul>
+          </div>
+           <div class="col-md-3 col-sm-6 footerlist">
+            <h3>My Account</h3>
+            <ul>
+              <li><a href="#">My Account</a></li>
+              <li><a href="#">Order History</a></li>
+              <li><a href="#">Wish List</a></li>
+              <li><a href="#">Newsletter</a></li>
+            </ul>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12 lastfooter footerlist">
+            <ul>
+               <li><a href="#">Powered By Nwu </a></li>
+              <li>North Western University Limited. © 2018</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- ********************************** -->
+            <!-- FOOTER SECTION -->
+    <!-- ********************************** -->
+    <!-- ............................................ -->
+    <!-- ............................................ -->
+    <!-- ............................................ -->
+    <!-- this is register section function -->
+    <div class="modal fade bs-example-modal-lg-reg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="loginsection-input">
+            <form method="POST" action="{% url 'login' %}">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="exampleInputEmail1">Username</label>
+                <input type="text" name="username" class="form-control" id="exampleInputEmail1" placeholder="Email">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+              </div><br>
+              <button type="submit" class="btn btn-info col-md-12">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="loginsection-input">
+            <form method="POST" action="{url 'register'}">
+              {% csrf_token %}
+              {{forms.as_p}}
+              {{cus_form.as_p}}
+              <br>
+              <button type="submit" class="btn btn-success col-md-12">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ............................................ -->
+    <!-- ............................................ -->
+
+
+
+
+
+    <!-- *********Go To Section Start******** -->
+    <div class="go-top">
+     <i class="fa fa-angle-up"></i>
+    </div>
+    <!-- *********Go To Section Start******** -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script type="text/javascript" src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+
+    <!-- **********navbar script start************* -->
+  <!--   <script type="text/javascript">
+        $(function(){
+          setTimeout(function() {
+            $('.navbar-brand').removeClass('newclass');
+          }, 500);
+        });
+         $(function(){
+          setTimeout(function() {
+            $('.padddd').removeClass('padminus');
+          }, 500);
+        });
+
+  </script> -->
+  <!-- **********navbar script end************* -->
+
+
+    <!-- ####### slider start ################# -->
+        <script type="text/javascript">
+              $(document).ready(function(){
+                  $("#owl-demo").owlCarousel({
+
+                    navigation : false, // Show next and prev buttons
+                    autoplay : true,
+                    slideSpeed : 300,
+                    paginationSpeed : 800,
+                    animateOut: 'zoomOut',
+                     animateIn: 'zoomIn',
+                     loop : true,
+
+
+                    items : 1,
+                    itemsDesktop : false,
+                    itemsDesktopSmall : false,
+                    itemsTablet: false,
+                    itemsMobile : false
+                  });
+                });
+            </script>
+    <!-- ####### slider end ################# -->
+    <script type="text/javascript">
+    $('alert').on('closed.bs.alert', function () {
+      $().alert('close')
+    })
+    </script>
+
+  </body>
+</html>

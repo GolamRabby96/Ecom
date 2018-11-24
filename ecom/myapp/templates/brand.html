@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block style %}{% endblock %}
+{% block foo %}
+    <div class="laptop-container">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 positonfextstart">
+            <div class="categories">
+              <ul class="menu">
+                {% for b in brand %}
+                    <li><a href="{% url 'brand' name=b.name %}">{{b.name}}</a></li>
+                {% endfor %}
+              </ul>
+            </div> <!-- /.categories -->
+          </div>
+          <div class="col-md-9">
+            <div class="laptop-models">
+              <div class="row">
+                {% for post in contex %}
+                  <div class="col-sm-6 col-md-4">  <!-- *********** -->
+                    <div class="thumbnail">
+                      <img src="{{post.image_one.url}}" alt="...">
+                      <div class="caption capedit">
+                        <h3>{{post.product_model}}</h3>
+                        <p>{{post.prince}} Tk</p>
+                        <div class="hover-new-section">
+                          <p><a href="{% url 'product_details' id=post.id %}" class="btn btn-primary" role="button"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>Go Details</a></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <!-- *********** -->
+                {% endfor %}
+              </div>
+            </div> <!-- /.laptop-models -->
+          </div>
+        </div> <!-- /.row -->
+      </div> <!-- /.container -->
+    </div> <!-- /.laptop-container -->
+{% endblock %}

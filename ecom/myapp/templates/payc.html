@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block style %}{% endblock %}
+{% block foo %}
+
+    <div class="laptop-container">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <div class="laptop-models">
+              <div class="row">
+                <div class="col-md-12">  <!-- *********** -->
+                  <div class="thumbnail">
+                    <img src="{{con.image_one.url}}" alt="...">
+                    <div class="caption capedit">
+                      <div class="product-table ">
+                        <h2>Product Name : {{con.product_model}}</h2>
+                        <h3>Product Proce : {{con.prince}} tk</h3>
+                        <hr>
+                        <a href="" class="btn btn-primary btn-lg">Bkash</a>
+                        <a href="" class="btn btn-primary btn-lg">Roket</a>
+                        <a href="" class="btn btn-primary btn-lg">Paypal</a>
+                        <a href="" class="btn btn-primary btn-lg">Scrill</a>
+                      </div><br><br>
+                      <a class="btn btn-success col-md-12" href="{% url 'comment' id=con.id %}">Get FeadBack</a>
+                      <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Get FeadBack</button> -->
+                        <!-- <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                          <div class="modal-dialog modal-sm" role="document">
+                            <div class="modal-content">
+                              <form method="POST" action="{% url 'comment' id=con.id %} ">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                  <label for="exampleInputEmail1">Product Comments</label>
+                                  <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Comment" name="comment">
+                                  <input type="Submit" class="btn btn-success col-md-12" name="" value="Done">
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div> -->
+                    </div>
+                  </div>
+                </div> <!-- *********** -->
+              </div>
+            </div> <!-- /.laptop-models -->
+          </div>
+        </div> <!-- /.row -->
+      </div> <!-- /.container -->
+    </div> <!-- /.laptop-container -->
+{% endblock %}

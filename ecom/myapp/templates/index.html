@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block style %}{% endblock %}
+{% block foo %}
+    <!-- ####### slider start ################# -->
+    <!-- first section -->
+    <section><!-- owl carousel -->
+      <div id="owl-demo" class="owl-carousel owl-theme">
+        <div class="item">
+          <img src="{% static 'images/sl1.jpg' %}" alt="The Last of us">
+        </div>
+        <div class="item">
+          <img src="{% static 'images/sl2.jpg' %}" alt="GTA V">
+        </div>
+        <div class="item">
+          <img src="{% static 'images/sl3.jpg' %}" alt="Mirror Edge">
+        </div>
+        <div class="item">
+          <img src="{% static 'images/sl4.jpg' %}" alt="Mirror Edge">
+        </div>
+      </div>
+    </section>   <!-- /.first section -->
+    <!-- ####### slider end ################# -->
+    <!-- **************new product start*************** -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="new-header-section"> <!-- ****** -->
+          </div> <!-- ********* -->
+        </div>
+      </div>
+    </div>
+    <div class="new-back-color">
+      <div class="container">
+          <div class="row">
+            {% for post in contacts %}
+              <div class="col-sm-6 col-md-4">  <!-- *********** -->
+                <div class="thumbnail">
+                  <img src="{{post.image_one.url}}" alt="...">
+                  <div class="caption capedit">
+                    {% if post.product_rating %}
+                      <script type="text/javascript">
+                            var count;
+                            for(count = 0; count <{{post.product_rating}}; count++){
+                               document.write('&nbsp;<i style="color:#0a9216; text-shadow: 0 1px 4px rgba(0,0,0,.5);" class=" fa fa-star" aria-hidden="true"></i>');
+                            }
+                      </script>
+                    {% endif %}
+                    <h3>{{post.product_model}}</h3>
+                    <p>{{post.prince}} Tk</p>
+                    <div class="hover-new-section">
+                      <p><a href="{% url 'product_details' id=post.id %}" class="btn btn-primary" role="button"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>Go Details</a></p>
+                    </div>
+                  </div>
+                </div>
+              </div> <!-- *********** -->
+            {% endfor %}
+          </div>
+      </div>
+    </div>
+    <!-- ........................ -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="pagination">
+          <h3>
+          <span class="step-links">
+              {% if contacts.has_previous %}
+                  <a href="?page=1"><b>&laquo; first</b></a>
+                  <a href="?page={{ contacts.previous_page_number }}"><b>previous</b></a>
+              {% endif %}
+
+              <span class="current">
+                  <b>Page</b> {{ contacts.number }} <i>of </i>  {{ contacts.paginator.num_pages }}.
+              </span>
+
+              {% if contacts.has_next %}
+                  <a href="?page={{ contacts.next_page_number }}"><b>next &nbsp;</b></a>
+                  <a href="?page={{ contacts.paginator.num_pages }}"><b>last &raquo;</b></a>
+              {% endif %}
+          </span>
+        </h3>
+      </div>
+        </div>
+      </div>
+    </div>
+
+    {% endblock %}

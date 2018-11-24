@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block style %}
+<style media="screen">
+.owl-carousel .owl-item img {
+  width: 100% !important;
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    vertical-align: center !important;
+}
+</style>
+{% endblock %}
+{% block foo %}
+<div class="laptop-container">
+  <div class="container">
+    <div class="row">
+    </div>
+    <div class="col-md-10 col-md-offset-1">
+      <div class="laptop-models">
+        <div class="row">
+          <div class="col-md-12">  <!-- *********** -->
+            <div class="thumbnail">
+              <div class="col-md-12">
+                <div class="col-md-6">
+                  <!-- ####### slider start ################# -->
+                  <!-- first section -->
+                  <section><!-- owl carousel -->
+                    <div id="owl-demo" class="owl-carousel owl-theme">
+                      <div class="item">
+                        <img src="{{con.image_one.url}}" alt="The Last of us">
+                      </div>
+                      <div class="item">
+                        <img src="{{con.image_two.url}}" alt="GTA V">
+                      </div>
+                      <div class="item">
+                        <img src="{{con.image_three.url}}" alt="Mirror Edge">
+                      </div>
+                    </div>
+                  </section>   <!-- /.first section -->
+                  <!-- ####### slider end ################# -->
+                </div>
+                <div class="col-md-6">
+                  <h2>Product Name : {{con.product_model}}</h2>
+                  <h3>Product Price : {{con.prince}} tk</h3>
+                    {% if con.product_rating %}
+                      <script type="text/javascript">
+                            var count;
+                            for(count = 0; count <{{con.product_rating}}; count++){
+                               document.write('&nbsp;<i style="color:#0a9216; text-shadow: 0 1px 4px rgba(0,0,0,.5);" class=" fa fa-star" aria-hidden="true"></i>');
+                            }
+                      </script>
+                    {% endif %}<br><br>
+                    {% if user.is_authenticated %}
+                      <a href="{% url 'pay' id=con.id %}" class="btn btn-success">Buy Now</a>
+                      <a href="{% url 'cart' id=con.id name='none' %}" class="btn btn-info">Add To cart</a>
+                    {% endif %}
+                </div>
+              </div><br><br><hr>
+              <div class="caption"><hr><hr>
+                <div class="product-table "><br>
+                  <table class="table table-hover table table-striped">
+                    <tr><td></td><td></td></tr>
+                    {% if con.topic_one %}<tr><td>{{con.topic_one}}</td><td>{{con.description_one}}</td></tr>{% endif %}
+                    {% if con.topic_two %}<tr><td>{{con.topic_two}}</td><td>{{con.description_two}}</td></tr>{% endif %}
+                    {% if con.topic_three %}<tr><td>{{con.topic_three}}</td><td>{{con.description_three}}</td></tr>{% endif %}
+                    {% if con.topic_four %}<tr><td>{{con.topic_four}}</td><td>{{con.description_four}}</td></tr>{% endif %}
+                    {% if con.topic_five %}<tr><td>{{con.topic_five}}</td><td>{{con.description_five}}</td></tr>{% endif %}
+                    {% if con.topic_six %}<tr><td>{{con.topic_six}}</td><td>{{con.description_six}}</td></tr>{% endif %}
+                    {% if con.topic_seven %}<tr><td>{{con.topic_seven}}</td><td>{{con.description_seven}}</td></tr>{% endif %}
+                    {% if con.topic_eight %}<tr><td>{{con.topic_eight}}</td><td>{{con.description_eight}}</td></tr>{% endif %}
+                    {% if con.topic_nine %}<tr><td>{{con.topic_nine}}</td><td>{{con.description_nine}}</td></tr>{% endif %}
+                    {% if con.topic_ten %}<tr><td>{{con.topic_ten}}</td><td>{{con.description_ten}}</td></tr>{% endif %}
+                    {% if con.topic_eleven %}<tr><td>{{con.topic_eleven}}</td><td>{{con.description_eleven}}</td></tr>{% endif %}
+                    {% if con.topic_twelve %}<tr><td>{{con.topic_twelve}}</td><td>{{con.description_twelve}}</td></tr>{% endif %}
+                    {% if con.topic_therteen %}<tr><td>{{con.topic_therteen}}</td><td>{{con.description_therteen}}</td></tr>{% endif %}
+                    {% if con.topic_fourteen %}<tr><td>{{con.topic_fourteen}}</td><td>{{con.description_fourteen}}</td></tr>{% endif %}
+                    {% if con.topic_fifteen %}<tr><td>{{con.topic_fifteen}}</td><td>{{con.description_fifteen}}</td></tr>{% endif %}
+                    <tr><td></td><td></td></tr>
+                  </table>
+                </div>
+              </div>
+              <h1 class="jumbotron">Product Reviews</h1>
+              <hr>
+              <div class="comment-section">
+                {% for cc in com %}
+                <div class="usercommrnt">
+                  <span><b>{{cc.customer}}</b></span>&nbsp;&nbsp;&nbsp;
+                  <span style='float:right'>
+                    {% if cc.rating %}
+                    <script type="text/javascript">
+                      var count;
+                      for(count = 0; count <{{cc.rating}}; count++){
+                       document.write('&nbsp;<i style="color:#ff3100; text-shadow: 0 1px 4px rgba(0,0,0,.5);" class=" fa fa-star" aria-hidden="true"></i>');
+                     }
+                   </script>
+                   {% endif %}
+                 </span>
+                 <span style="font-size:12px">{{cc.com_date}}</span>
+                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{cc.comment}}</p>
+               </div><hr>
+               {% endfor %}
+             </div>
+           </div>
+         </div> <!-- *********** -->
+       </div>
+     </div> <!-- /.laptop-models -->
+   </div>
+ </div> <!-- /.row -->
+</div> <!-- /.container -->
+</div> <!-- /.laptop-container -->
+{% endblock %}

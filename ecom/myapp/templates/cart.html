@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block style %}{% endblock %}
+{% block foo %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <br><br><br><hr>
+        <table class="table">
+          <tr>
+            <th>Customer Name</th>
+            <th>Product Name</th>
+            <th>Date</th>
+            <th>Product Price</th>
+            <th></th>
+          </tr>
+          {% for cart in cart %}
+          <tr>
+            <td>{{cart.customer.username}}</td>
+            <td>{{cart.product.product_model}}</td>
+            <td>{{cart.date}}</td>
+            <td>{{cart.product.prince}}</td>
+            <td><a class="btn btn-info" href="{% url 'cart' id=cart.product.id name='add' %}">Add (+1)</a>&nbsp;&nbsp;<a class="btn btn-danger" href="{% url 'cartdelete' id=cart.id %}">Delete</a></td>
+          </tr>
+          <hr>
+          {% endfor %}
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><h3 style="color:#01126f">Total Product {{ cart.count}}</h3></td>
+            <td><h3 style="color:#01126f">Total Price is</h3></td>
+            <td><h3 style="color:#01126f">{{total}}Tk</h3></td>
+            <td></td>
+          </tr>
+        </table><hr>
+        <a class="btn btn-success col-md-12" href="">Buy</a>
+        <br><br><br><br>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
